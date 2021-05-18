@@ -10,14 +10,17 @@ bool somaDePares(int *v, int k){
     for (j; j < lenght; j++){
 
         for (int i = 1; i < lenght; i++){
-            if (k = cabeca + i)
+            if (k = cabeca + i){
+            printf("Batata frita\n");
              return true;
+            }
 
          else i++;
         }
     
     }
 
+    printf("Batata assada\n");
     return false;
 }
 
