@@ -1,6 +1,9 @@
 #ifndef __RSA_H__
 #define __RSA_H__
 
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 #include "../exercicios/ex1.c"
 #include "../exercicios/ex2.c"
 #include "../exercicios/ex3.c"
