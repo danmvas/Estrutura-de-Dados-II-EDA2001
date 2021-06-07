@@ -10,8 +10,7 @@ void multiplicacaoValores(int *v){
 
     printf("Resposta segundo exercício: ");
 
-    for (int k = 0; k < ; k++)
-    {
+    for (int k = 0; k < ; k++){
 
     }
 
