@@ -145,29 +145,75 @@ void inorder(struct node* trav)
 	inorder(trav->r);
 }
 
-int main()
-{
-	int n = 7;
-	int a[7] = { 7, 6, 5, 4, 3, 2, 1 };
+///////////////////////////////////////////////////////////////////////////////////////
 
-	for (int i = 0; i < n; i++) {
+int main(){
+    int item, ch;
+    int tamAmostra = 63;
+    int values[tamAmostra];
 
-		struct node* temp
-			= (struct node*)malloc(sizeof(struct node));
-		temp->r = NULL;
-		temp->l = NULL;
-		temp->p = NULL;
-		temp->d = a[i];
-		temp->c = 1;
+    printf("---------------------------------------------\n");
+    printf("\t\tÁrvore Rubro Negra\n\n");
+    printf("---------------------------------------------\n");
+    printf("\t\tCaso medio\n\n");
+    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    for (int j = 0; j < 10; j++){
 
-		root = bst(root, temp);
+        int tamAmostra = rand() % 100;
+        int values[tamAmostra];
 
-		fixup(root, temp);
-	}
+        for(int i=0; i < tamAmostra; i++){
+            values[i] = rand() % 1000;
+        }
 
-	printf("Inoder Traversal of Created Tree\n");
-	inorder(root);
-    printf("\n");
+		// alterar pra essa árvore!
+        for(int i = 0; i < tamAmostra; i++){
+            insercao(values[i]);
+        }
+        
+        printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
+        interacoes = 0;
+    }
 
-	return 0;
+    printf("---------------------------------------------\n");
+    printf("\t\tPior Caso\n\n");
+    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    for (int j = 0; j < 10; j++){
+
+        int tamAmostra = rand() % 100;
+        int values[tamAmostra];
+
+        for(int i=0; i < tamAmostra; i++){
+            values[i] = rand() % 1000;
+        }
+
+        for(int i = 0; i < tamAmostra; i++){
+            insercao(values[i]);
+        }
+        
+        printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
+        interacoes = 0;
+    }
+
+
+	// int n = 7;
+	// int a[7] = { 7, 6, 5, 4, 3, 2, 1 };
+
+	// for (int i = 0; i < n; i++) {
+
+	// 	struct node* temp = (struct node*)malloc(sizeof(struct node));
+	// 	temp->r = NULL;
+	// 	temp->l = NULL;
+	// 	temp->p = NULL;
+	// 	temp->d = a[i];
+	// 	temp->c = 1;
+
+	// 	root = bst(root, temp);
+
+	// 	fixup(root, temp);
+	// }
+
+	// printf("Inoder Traversal of Created Tree\n");
+	// inorder(root);
+    // printf("\n");
 }

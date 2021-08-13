@@ -138,18 +138,66 @@ void preOrdenacao(nodo* root){
    }
  }
 
+///////////////////////////////////////////////////////////////////////////////////////
+
 int main(){
-    nodo* root = NULL;
+    // nodo* root = NULL;
 
-    root = inserir(root, 10);
-    root = inserir(root, 20);
-    root = inserir(root, 30);
-    root = inserir(root, 40);
-    root = inserir(root, 50);
-    root = inserir(root, 25);
+    // root = inserir(root, 10);
+    // root = inserir(root, 20);
+    // root = inserir(root, 30);
+    // root = inserir(root, 40);
+    // root = inserir(root, 50);
+    // root = inserir(root, 25);
 
-    printf("A árvore AVL construída é:\n");
-    preOrdenacao(root);
-    printf("\n");
-    return 0;
+    // int item, ch;
+    // int tamAmostra = 63;
+    // int values[tamAmostra];
+
+    // printf("A árvore AVL construída é:\n");
+    // preOrdenacao(root);
+    // printf("\n");
+
+    printf("---------------------------------------------\n");
+    printf("\t\tÁrvore AVL\n\n");
+    printf("---------------------------------------------\n");
+    printf("\t\tCaso medio\n\n");
+    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    for (int j = 0; j < 10; j++){
+
+        int tamAmostra = rand() % 100;
+        int values[tamAmostra];
+
+        for(int i=0; i < tamAmostra; i++){
+            values[i] = rand() % 1000;
+        }
+
+        // alterar pra essa árvore!
+        for(int i = 0; i < tamAmostra; i++){
+            insercao(values[i]);
+        }
+        
+        printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
+        interacoes = 0;
+    }
+
+    printf("---------------------------------------------\n");
+    printf("\t\tPior Caso\n\n");
+    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    for (int j = 0; j < 10; j++){
+
+        int tamAmostra = rand() % 100;
+        int values[tamAmostra];
+
+        for(int i=0; i < tamAmostra; i++){
+            values[i] = rand() % 1000;
+        }
+
+        for(int i = 0; i < tamAmostra; i++){
+            insercao(values[i]);
+        }
+        
+        printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
+        interacoes = 0;
+    }
 }

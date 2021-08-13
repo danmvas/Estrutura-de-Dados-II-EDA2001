@@ -245,11 +245,15 @@ void imprime(nodo *meuNodo){
    }
  }
 
+ ///////////////////////////////////////////////////////////////////////////////////////
+
 int main(){
     int item, ch;
     int tamAmostra = 63;
     int values[tamAmostra];
 
+    printf("---------------------------------------------\n");
+    printf("\t\tÁrvore B\n\n");
     printf("---------------------------------------------\n");
     printf("\t\tCaso medio\n\n");
     printf("Tamanho dos Conjuntos | Esforco Computacional\n");
