@@ -191,6 +191,7 @@ void merge(nodo *meuNodo, int pos){
     free(x1);
 }
 
+
 // ajustando o nodo
 void ajustandoNodo(nodo *meuNodo, int pos){
     if(!pos){
