@@ -12,6 +12,8 @@ struct Nodo {
 
 typedef struct Nodo nodo;
 
+int interacoes = 0;
+
 nodo *root;
 
 // criação de um novo nodo
@@ -84,7 +86,7 @@ int setValor(int item, int *pval, nodo *node, nodo **filho){
     } else{
         for (pos = node->cont; item < node->item[pos] && pos > 1; pos--);
         if(item == node->item[pos]){
-            printf("Proibido repetir elemento\n");
+            
             return 0;
         }
     }
@@ -109,6 +111,7 @@ void insercao(int item){
     if(bandeira){
         root = novoNodo(i, filho);
     }
+    interacoes++;
 }
 
 // copia o sucessor
@@ -140,6 +143,7 @@ void rotacaoDireita(nodo *meuNodo, int pos){
     meuNodo->item[pos] = x->item[x->cont];
     meuNodo->link[pos] = x->link[x->cont];
     x->cont--;
+    interacoes++;
 }
 
 void rotacaoEsquerda(nodo *meuNodo, int pos){
@@ -159,6 +163,7 @@ void rotacaoEsquerda(nodo *meuNodo, int pos){
         x->item[j] = x->item[j + 1];
         x->link[j] = x->link[j + 1];
     }
+    interacoes++;
 }
 
 void merge(nodo *meuNodo, int pos){
@@ -227,20 +232,61 @@ void imprime(nodo *meuNodo){
     }
 }
 
+ void insertion_sort(int *v, int n) {
+   int aux;
+   for (int i = 0; i < n; i++) {
+     int j=i;
+     while ((j>0) &&(v[j-1]>v[j])) {
+       aux=v[j];
+       v[j]=v[j-1];
+       v[j-1]=aux;
+       j--;
+     }
+   }
+ }
+
 int main(){
     int item, ch;
+    int tamAmostra = 63;
+    int values[tamAmostra];
 
-    insercao(8);
-    insercao(9);
-    insercao(10);
-    insercao(23);
-    insercao(11);
-    insercao(15);
-    insercao(16);
-    insercao(17);
-    insercao(18);
-    insercao(20);
-    
-    imprime(root);
-    printf("\n");
+    printf("---------------------------------------------\n");
+    printf("\t\tCaso medio\n\n");
+    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    for (int j = 0; j < 10; j++){
+
+        int tamAmostra = rand() % 100;
+        int values[tamAmostra];
+
+        for(int i=0; i < tamAmostra; i++){
+            values[i] = rand() % 1000;
+        }
+
+        for(int i = 0; i < tamAmostra; i++){
+            insercao(values[i]);
+        }
+        
+        printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
+        interacoes = 0;
+    }
+
+    printf("---------------------------------------------\n");
+    printf("\t\tPior Caso\n\n");
+    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    for (int j = 0; j < 10; j++){
+
+        int tamAmostra = rand() % 100;
+        int values[tamAmostra];
+
+        for(int i=0; i < tamAmostra; i++){
+            values[i] = rand() % 1000;
+        }
+
+        for(int i = 0; i < tamAmostra; i++){
+            insercao(values[i]);
+        }
+        
+        printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
+        interacoes = 0;
+    }
 }
