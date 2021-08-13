@@ -27,6 +27,7 @@ nodo* novoNodo(int chave){
     novo->direita = NULL;
     novo->altura = 1;
 
+    
     return(novo);
 }
 
@@ -123,6 +124,19 @@ void preOrdenacao(nodo* root){
         preOrdenacao(root->direita);
     }
 }
+
+ void insertion_sort(int *v, int n) {
+   int aux;
+   for (int i = 0; i < n; i++) {
+     int j=i;
+     while ((j>0) &&(v[j-1]>v[j])) {
+       aux=v[j];
+       v[j]=v[j-1];
+       v[j-1]=aux;
+       j--;
+     }
+   }
+ }
 
 int main(){
     nodo* root = NULL;
