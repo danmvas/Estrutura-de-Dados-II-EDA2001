@@ -255,7 +255,7 @@ int main(){
     printf("Tamanho dos Conjuntos | Esforco Computacional\n");
     for (int j = 0; j < 10; j++){
 
-        int tamAmostra = rand() % 100;
+        int tamAmostra = rand() % 1000;
         int values[tamAmostra];
 
         for(int i=0; i < tamAmostra; i++){
@@ -275,7 +275,7 @@ int main(){
     printf("Tamanho dos Conjuntos | Esforco Computacional\n");
     for (int j = 0; j < 10; j++){
 
-        int tamAmostra = rand() % 100;
+        int tamAmostra = rand() % 1000;
         int values[tamAmostra];
 
         for(int i=0; i < tamAmostra; i++){
@@ -289,4 +289,5 @@ int main(){
         printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
         interacoes = 0;
     }
+    printf("---------------------------------------------\n");
 }
