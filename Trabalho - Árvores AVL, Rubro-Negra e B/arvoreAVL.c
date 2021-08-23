@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int interacoes = 0;
+
 struct Nodo{
     int chave;
     struct Nodo *esquerda;
     struct Nodo *direita;
     int altura;    
-};
-typedef struct Nodo nodo;
+}; typedef struct Nodo nodo;
 
 int altura(nodo *N){
     if(N == NULL){
@@ -21,17 +22,18 @@ int max(int a, int b){
 }
 
 nodo* novoNodo(int chave){
+    interacoes++;
     struct Nodo* novo = (struct Nodo*) malloc(sizeof(struct Nodo));
     novo->chave = chave;
     novo->esquerda = NULL;
     novo->direita = NULL;
     novo->altura = 1;
 
-    
     return(novo);
 }
 
 nodo* rotacaoDireita(nodo* node){
+    interacoes++;
     struct Nodo* x = node->esquerda;
     struct Nodo* T2 = x->direita;
 
@@ -48,6 +50,7 @@ nodo* rotacaoDireita(nodo* node){
 }
 
 nodo* rotacaoEsquerda(nodo* node){
+    interacoes++;
     struct Nodo* x = node->direita;
     struct Nodo* T2 = x->esquerda;
 
@@ -66,10 +69,11 @@ nodo* rotacaoEsquerda(nodo* node){
 int balanco(nodo* N){
     if(N == NULL)
         return 0;
-    return altura(N->esquerda) - altura(N->direita); 
+    return altura(N->esquerda) - altura(N->direita) && interacoes++; 
 }
 
 nodo* inserir(nodo* node, int chave){
+    interacoes++;
     // 1° insere normalmente
     if(node == NULL)
         return novoNodo(chave);
@@ -126,6 +130,7 @@ void preOrdenacao(nodo* root){
 }
 
  void insertion_sort(int *v, int n) {
+   interacoes++;
    int aux;
    for (int i = 0; i < n; i++) {
      int j=i;
@@ -141,22 +146,6 @@ void preOrdenacao(nodo* root){
 ///////////////////////////////////////////////////////////////////////////////////////
 
 int main(){
-    // nodo* root = NULL;
-
-    // root = inserir(root, 10);
-    // root = inserir(root, 20);
-    // root = inserir(root, 30);
-    // root = inserir(root, 40);
-    // root = inserir(root, 50);
-    // root = inserir(root, 25);
-
-    // int item, ch;
-    // int tamAmostra = 63;
-    // int values[tamAmostra];
-
-    // printf("A árvore AVL construída é:\n");
-    // preOrdenacao(root);
-    // printf("\n");
 
     printf("---------------------------------------------\n");
     printf("\t\tÁrvore AVL\n\n");
@@ -165,16 +154,19 @@ int main(){
     printf("Tamanho dos Conjuntos | Esforco Computacional\n");
     for (int j = 0; j < 10; j++){
 
-        int tamAmostra = rand() % 100;
+        int tamAmostra = rand() % 1000;
         int values[tamAmostra];
+        int chaves[tamAmostra];
+
+        int ch  = rand() % 1000;
 
         for(int i=0; i < tamAmostra; i++){
             values[i] = rand() % 1000;
+            chaves[i] = rand() % 1000;
         }
 
-        // alterar pra essa árvore!
         for(int i = 0; i < tamAmostra; i++){
-            insercao(values[i]);
+            inserir(values[i], chaves[i]);
         }
         
         printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
@@ -186,18 +178,21 @@ int main(){
     printf("Tamanho dos Conjuntos | Esforco Computacional\n");
     for (int j = 0; j < 10; j++){
 
-        int tamAmostra = rand() % 100;
+        int tamAmostra = rand() % 1000;
         int values[tamAmostra];
+        int chaves[tamAmostra];
 
         for(int i=0; i < tamAmostra; i++){
             values[i] = rand() % 1000;
+            chaves[i] = rand() % 1000;
         }
 
         for(int i = 0; i < tamAmostra; i++){
-            insercao(values[i]);
+            inserir(values[i], chaves[i]);
         }
         
         printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
         interacoes = 0;
     }
+    printf("---------------------------------------------\n");
 }
