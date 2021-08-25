@@ -3,30 +3,29 @@
 
 int interacoes = 0;
 
-// Structure to represent each
-// node in a red-black tree
+// estrutura para representar cada nó
+// na arvore rubro-negra
 struct node {
 	int d; // data
-	int c; // 1-red, 0-black
-	struct node* p; // parent
-	struct node* r; // right-child
-	struct node* l; // left child
+	int c; // 1-vermelho, 0-preto
+	struct node* p; // pai
+	struct node* r; // filho a direira
+	struct node* l; // filho a esquerda
 };
 
-// global root for the entire tree
-struct node* root = NULL;
-int *vetor; //cria uma cópia ordenada da árvore para inserir como pior caso
+struct node* root = NULL; // raiz da arvore
+int *vetor; //cria uma copia ordenada da arvore para inserir como pior caso
 int posicoes = 0;
 
-// function to perform BST insertion of a node
+// insere
 struct node* bst(struct node* trav, struct node* temp)
 {
-	// If the tree is empty,
-	// return a new node
+	// se a arvore esta vazia
+	// retorna um novo no
 	if (trav == NULL)
 		return temp;
 
-	// Otherwise recur down the tree
+	// caso contrario recua na arvore
 	if (temp->d < trav->d)
 	{
 		trav->l = bst(trav->l, temp);
@@ -39,12 +38,12 @@ struct node* bst(struct node* trav, struct node* temp)
 	}
     interacoes++;
 
-	// Return the (unchanged) node pointer
+	// retorna o ponteiro do no (inalterado)
 	return trav;
 }
 
-// Function performing right rotation
-// of the passed node
+// funcao para realizar a rotacao a direita
+// do no passado
 void rightrotate(struct node* temp)
 {
 	struct node* left = temp->l;
@@ -63,8 +62,8 @@ void rightrotate(struct node* temp)
     interacoes++;
 }
 
-// Function performing left rotation
-// of the passed node
+// funcao para realizar a rotacao a esquerda
+// do no passado
 void leftrotate(struct node* temp)
 {
 	struct node* right = temp->r;
@@ -83,8 +82,8 @@ void leftrotate(struct node* temp)
     interacoes++;
 }
 
-// This function fixes violations
-// caused by BST insertion
+// funcao para corrigir as violacoes
+// causadas pela insercao
 void fixup(struct node* root, struct node* pt)
 {
 	struct node* parent_pt = NULL;
@@ -97,18 +96,17 @@ void fixup(struct node* root, struct node* pt)
         parent_pt = pt->p;
 		grand_parent_pt = pt->p->p;
 
-		/* Case : A
-			Parent of pt is left child
-			of Grand-parent of
-		pt */
+		/* Caso : A
+			pai de pt e filho esquerdo do avo de pt*/
 		if (parent_pt == grand_parent_pt->l)
 		{
 
 			struct node* uncle_pt = grand_parent_pt->r;
 
-			/* Case : 1
-				The uncle of pt is also red
-				Only Recoloring required */
+
+			/* Caso : 1
+				O tio de pt tambem e vermelho
+				e preciso apenas recolorir*/
 			if (uncle_pt != NULL && uncle_pt->c == 1)
 			{
 				grand_parent_pt->c = 1;
@@ -118,19 +116,18 @@ void fixup(struct node* root, struct node* pt)
 			}
 
 			else {
-
-				/* Case : 2
-					pt is right child of its parent
-					Left-rotation required */
+				/* Caso : 2
+					pt e o filho direito do pai
+					e preciso uma rotacao a esquerda*/
 				if (pt == parent_pt->r) {
 					leftrotate(parent_pt);
 					pt = parent_pt;
 					parent_pt = pt->p;
 				}
 
-				/* Case : 3
-					pt is left child of its parent
-					Right-rotation required */
+				/* Caso : 3
+					pt e o filho esquedo do pai
+					e preciso uma rotacao a direita*/
 				rightrotate(grand_parent_pt);
 				int t = parent_pt->c;
 				parent_pt->c = grand_parent_pt->c;
@@ -139,16 +136,14 @@ void fixup(struct node* root, struct node* pt)
 			}
 		}
 
-		/* Case : B
-			Parent of pt is right
-			child of Grand-parent of
-		pt */
+		/* Caso : B
+			pai de pt e filho direito do avo de pt*/
 		else {
 			struct node* uncle_pt = grand_parent_pt->l;
 
-			/* Case : 1
-				The uncle of pt is also red
-				Only Recoloring required */
+			/* Caso : 1
+				O tio de pt e vermelho tambem
+				e preciso apenas recolorir*/
 			if ((uncle_pt != NULL) && (uncle_pt->c == 1))
 			{
 				grand_parent_pt->c = 1;
@@ -157,18 +152,17 @@ void fixup(struct node* root, struct node* pt)
 				pt = grand_parent_pt;
 			}
 			else {
-				/* Case : 2
-				pt is left child of its parent
-				Right-rotation required */
+				/* Caso : 2
+				pt e filho esquedo do seu pai
+				e preciso uma rotacao a direita*/
 				if (pt == parent_pt->l) {
 					rightrotate(parent_pt);
 					pt = parent_pt;
 					parent_pt = pt->p;
 				}
-
-				/* Case : 3
-					pt is right child of its parent
-					Left-rotation required */
+				/* Caso : 3
+					pt e filho direito do seu pai
+					e preciso uma rotacao a esquerda*/
 				leftrotate(grand_parent_pt);
 				int t = parent_pt->c;
 				parent_pt->c = grand_parent_pt->c;
@@ -181,8 +175,7 @@ void fixup(struct node* root, struct node* pt)
 	root->c = 0;
 }
 
-// Function to print inorder traversal
-// of the fixated tree
+// funcao para printar inorder
 void inorder(struct node* trav)
 {
 	if (trav == NULL)
@@ -193,17 +186,16 @@ void inorder(struct node* trav)
 	inorder(trav->r);
 }
 
-// driver code
 int main(){
-    int item; //recebe o valor aleatório para adicionar à árvor
+    int item; //recebe o valor aleatorio para adicionar na arvore
     int tamAmostra = 63; //quantidade de nodes a serem adicionadas
     int *values; // armazena os nodes
     values = malloc(tamAmostra*sizeof(struct node));
     vetor = malloc(tamAmostra*sizeof(int));
 
     
-    //serão geradas 10 árvores
-    for (int j = 0; j < 2; j++){
+    //serao geradas 10 arvores
+    for (int j = 0; j < 10; j++){
         printf("---------------------------------------------\n");
         printf("\t\tCaso medio\n\n");
         printf("Tamanho dos Conjuntos | Esforco Computacional\n");
@@ -213,7 +205,7 @@ int main(){
         values = realloc(values, tamAmostra*sizeof(struct node));
         vetor = realloc(vetor, tamAmostra*sizeof(int));
 
-        //para cada árvore, adiciona seus nodes com valores aleatórios
+        //para cada arvore, adiciona seus nodes com valores aleatorios
         for(int i=0; i < tamAmostra; i++){
             item = rand() % 1000;
 
@@ -222,7 +214,7 @@ int main(){
             temp->r = NULL;
             temp->l = NULL;
             temp->p = NULL;
-            temp->d = item; //recebe o valor aleatório
+            temp->d = item; //recebe o valor aleatorio
             temp->c = 1; //cor vermelha
 
             //insere o node
@@ -238,7 +230,7 @@ int main(){
         printf("\t\tPior Caso (decrescente)\n\n");
         printf("Tamanho dos Conjuntos | Esforco Computacional\n");
     
-        //para cada árvore, adiciona os mesmos nodes em ordem crescente
+        //para cada arvore, adiciona os mesmos nodes em ordem crescente
         for(int i=0; i < tamAmostra; i++){
             item = vetor[i];
             //printf("%i ", item);
@@ -248,7 +240,7 @@ int main(){
             temp->r = NULL;
             temp->l = NULL;
             temp->p = NULL;
-            temp->d = item; //recebe o valor aleatório
+            temp->d = item; //recebe o valor aleatorio
             temp->c = 1; //cor vermelha
 
             //insere o node
@@ -260,7 +252,7 @@ int main(){
         posicoes = 0;
         root = NULL;
     }
-    //inorder(root);
+    //inorder(raiz);
 
     return 0;
 }
