@@ -163,9 +163,9 @@ void inorder(nodo* trav)
 int main(){
     int item; //recebe o valor aleatório para adicionar à árvor
     int tamAmostra = 63; //quantidade de nodes a serem adicionadas
-    int *values; // armazena os nodes
-    values = malloc(tamAmostra*sizeof(nodo));
-    vetor = malloc(tamAmostra*sizeof(int));
+    nodo *values; // armazena os nodes
+    values = (nodo*)malloc(tamAmostra*sizeof(nodo));
+    vetor = (int*)malloc(tamAmostra*sizeof(int));
 
     
     //serão geradas 10 árvores
@@ -176,8 +176,8 @@ int main(){
 
         //determina a quantidade de nodes
         int tamAmostra = rand() % 100;
-        values = realloc(values, tamAmostra*sizeof(nodo));
-        vetor = realloc(vetor, tamAmostra*sizeof(int));
+        values = (nodo*)realloc(values, tamAmostra*sizeof(nodo));
+        vetor = (int*)realloc(vetor, tamAmostra*sizeof(int));
 
         //para cada árvore, adiciona seus nodes com valores aleatórios
         for(int i=0; i < tamAmostra; i++){
