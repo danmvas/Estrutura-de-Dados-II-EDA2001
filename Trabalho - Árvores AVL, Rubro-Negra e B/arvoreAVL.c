@@ -129,6 +129,21 @@ void preOrdenacao(nodo* root){
     }
 }
 
+nodo* root = NULL;
+int *vetor;
+int posicoes = 0;
+
+void inorder(nodo* trav)
+{
+	if (trav == NULL)
+		return;
+	inorder(trav->esquerda);
+	//printf("%d ", trav->chave);
+    vetor[posicoes++] = trav->chave;
+	inorder(trav->direita);
+}
+
+
  void insertion_sort(int *v, int n) {
    interacoes++;
    int aux;
@@ -146,53 +161,53 @@ void preOrdenacao(nodo* root){
 ///////////////////////////////////////////////////////////////////////////////////////
 
 int main(){
+    int item; //recebe o valor aleatório para adicionar à árvor
+    int tamAmostra = 63; //quantidade de nodes a serem adicionadas
+    int *values; // armazena os nodes
+    values = malloc(tamAmostra*sizeof(nodo));
+    vetor = malloc(tamAmostra*sizeof(int));
 
-    printf("---------------------------------------------\n");
-    printf("\t\tÁrvore AVL\n\n");
-    printf("---------------------------------------------\n");
-    printf("\t\tCaso medio\n\n");
-    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    
+    //serão geradas 10 árvores
     for (int j = 0; j < 10; j++){
+        printf("---------------------------------------------\n");
+        printf("\t\tCaso medio\n\n");
+        printf("Tamanho dos Conjuntos | Esforco Computacional\n");
 
-        int tamAmostra = rand() % 1000;
-        int values[tamAmostra];
-        int chaves[tamAmostra];
+        //determina a quantidade de nodes
+        int tamAmostra = rand() % 100;
+        values = realloc(values, tamAmostra*sizeof(nodo));
+        vetor = realloc(vetor, tamAmostra*sizeof(int));
 
-        int ch  = rand() % 1000;
-
+        //para cada árvore, adiciona seus nodes com valores aleatórios
         for(int i=0; i < tamAmostra; i++){
-            values[i] = rand() % 1000;
-            chaves[i] = rand() % 1000;
-        }
+            item = rand() % 1000;
 
-        for(int i = 0; i < tamAmostra; i++){
-            inserir(values[i], chaves[i]);
+            //insere o node
+            root = inserir(root,item);
         }
         
         printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
         interacoes = 0;
-    }
-
-    printf("---------------------------------------------\n");
-    printf("\t\tPior Caso\n\n");
-    printf("Tamanho dos Conjuntos | Esforco Computacional\n");
-    for (int j = 0; j < 10; j++){
-
-        int tamAmostra = rand() % 1000;
-        int values[tamAmostra];
-        int chaves[tamAmostra];
-
+        inorder(root);
+        
+    
+        printf("---------------------------------------------\n");
+        printf("\t\tPior Caso (decrescente)\n\n");
+        printf("Tamanho dos Conjuntos | Esforco Computacional\n");
+    
+        //para cada árvore, adiciona os mesmos nodes em ordem crescente
         for(int i=0; i < tamAmostra; i++){
-            values[i] = rand() % 1000;
-            chaves[i] = rand() % 1000;
-        }
-
-        for(int i = 0; i < tamAmostra; i++){
-            inserir(values[i], chaves[i]);
+            item = vetor[i];
+            root = inserir(root,item);
         }
         
-        printf("\t   %d         | \t%d\n", tamAmostra, interacoes);
+        printf("\n\t   %d         | \t%d\n", tamAmostra, interacoes);
         interacoes = 0;
+        posicoes = 0;
+        root = NULL;
     }
-    printf("---------------------------------------------\n");
+    //inorder(root);
+
+    return 0;
 }
