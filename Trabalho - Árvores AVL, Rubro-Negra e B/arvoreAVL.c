@@ -175,7 +175,7 @@ int main(){
         printf("Tamanho dos Conjuntos | Esforco Computacional\n");
 
         //determina a quantidade de nodes
-        int tamAmostra = rand() % 100;
+        int tamAmostra = rand() % 1000;
         values = (nodo*)realloc(values, tamAmostra*sizeof(nodo));
         vetor = (int*)realloc(vetor, tamAmostra*sizeof(int));
 
